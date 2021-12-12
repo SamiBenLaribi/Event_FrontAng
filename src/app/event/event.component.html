@@ -1,0 +1,89 @@
+<h1>Events !</h1>
+<div class="row">
+  <div class="col s12">
+    <div class="card">
+            <br>
+                  <br>
+      <div class="card-content white-text">
+        <div class="row">
+          <div class="col s5">
+
+            <form class="form-group" #eventForm="ngForm" (ngSubmit)="onSubmit(eventForm)">
+              <input class="form-control" type="hidden" name="_id" #_id="ngModel" [(ngModel)]="eventService.selectedEvent._id">
+              <div class="row">
+                <div class="input-field col s12">
+                  <label>Title :</label>
+                  <input class="form-control" type="text" name="title" #title="ngModel" placeholder="* Title.." required [(ngModel)]="eventService.selectedEvent.title">
+                </div>
+                <div id="alert" class="alert alert-danger" *ngIf="title.invalid && title.touched">
+                  Title is a Required Field !
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12">
+                  <label>Description :</label>
+                  <input class="form-control" type="text" name="description" #description="ngModel" placeholder="Description.." [(ngModel)]="eventService.selectedEvent.description">
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12">
+                  <label>Date :</label>
+                  <input class="form-control" type="date" name="date" #date="ngModel" [(ngModel)]="eventService.selectedEvent.date">
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12">
+                  <label>Address :</label>
+                  <input class="form-control" type="text" name="address" #address="ngModel" placeholder="* Adress.." required [(ngModel)]="eventService.selectedEvent.address">
+                </div>
+                <div id="alert" class="alert alert-danger" *ngIf="address.invalid && address.touched">
+                  Adress is a Required Field !
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12">
+                  <label for="formFile" class="form-label">Image :</label>
+                  <input class="form-control" type="file" name="image" #image="ngModel" placeholder="Image.." [(ngModel)]="eventService.selectedEvent.image">
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12">
+                  <button class="btn btn-success" type="button" (click)="resetForm(eventForm)">Reset</button>
+                  <button class="btn btn-success" type="submit" [disabled]="!eventForm.valid">Submit</button>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <table class="table table-success table-striped">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Date</th>
+                <th>Address</th>
+                <th>Image</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+              <tr *ngFor="let event of eventService.events">
+                <td>{{event.title}}</td>
+                <td>{{event.description}}</td>
+                <td>{{event.date}}</td>
+                <td>{{event.address}}</td>
+                <td>{{event.image}}</td>
+                <td>
+                  <a class="btn btn-default btn-sm" (click)="onEdit(event)">
+                    <i class="bi bi-pencil-fill">Edit</i>
+                  </a>
+                  <a class="btn btn-default btn-sm" (click)="onDelet(event._id,eventForm)">
+                    <i class="bi bi-pencil-fill">Delet</i>
+                  </a>
+                </td>
+              </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
